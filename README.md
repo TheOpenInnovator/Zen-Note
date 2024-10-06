@@ -44,7 +44,7 @@ To run this application, you need the following:
 ### Steps
 1.**Star the Repository**:
    Star this repository to access this from your profile and to share.
-   ```
+   
 2. **Clone the Repository**:
    ```
    git clone https://github.com/your-username/zen-note.git
@@ -60,7 +60,7 @@ To run this application, you need the following:
 4. **Enjoy the Features**:
    Start entering your daily learnings, toggle between light and dark modes, and generate beautiful snapshots of your notes!
 
----
+
 
 ## Contributing
 
