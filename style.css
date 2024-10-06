@@ -1,0 +1,230 @@
+:root {
+    --bg-gradient-light: linear-gradient(135deg, #F78888, #F3D250);
+    --bg-gradient-dark: linear-gradient(135deg, #212A31, #2E3944);
+    --text-color-light: #333;
+    --text-color-dark: #EDE8F5;
+    --entry-bg-light: rgba(236, 236, 236, 0.8);
+    --entry-bg-dark: rgba(46, 57, 68, 0.7);
+    --button-bg-light: #90CCF4;
+    --button-bg-dark: #3D52A0;
+    --button-hover-light: #5DA2D5;
+    --button-hover-dark: #124E66;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+}
+
+body.light-mode {
+    background: var(--bg-gradient-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode {
+    background: var(--bg-gradient-dark);
+    color: var(--text-color-dark);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #F3D250;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#entryForm {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#entryInput {
+    flex-grow: 1;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.light-mode button {
+    background-color: var(--button-bg-light);
+    color: var(--text-color-light);
+}
+
+.light-mode button:hover {
+    background-color: var(--button-hover-light);
+}
+
+.dark-mode button {
+    background-color: var(--button-bg-dark);
+    color: var(--text-color-dark);
+}
+
+.dark-mode button:hover {
+    background-color: var(--button-hover-dark);
+}
+
+#entriesList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.entry {
+    background-color: var(--entry-bg-light);
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.entry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .entry {
+    background-color: var(--entry-bg-dark);
+}
+
+.entry-content {
+    flex-grow: 1;
+    margin-right: 15px;
+}
+
+.entry-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.entry-actions span {
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 0.2s;
+}
+
+.entry-actions span:hover {
+    transform: scale(1.2);
+}
+
+.date-header {
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #F3D250;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+#darkModeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: rgba(255,255,255,0.1);
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+}
+
+.modal-buttons button {
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#snapshotCanvas {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 600px) {
+    #entryForm {
+        flex-direction: column;
+    }
+
+    #entryInput, button {
+        width: 100%;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .entry {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .entry-actions {
+        margin-top: 10px;
+    }
+}
