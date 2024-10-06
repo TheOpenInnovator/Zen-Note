@@ -109,6 +109,10 @@ button:active {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.entry-actions span.edit-btn {
+    color: #4CAF50;
+}
+
 .entry:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
