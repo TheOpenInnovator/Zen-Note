@@ -33,7 +33,38 @@
    - Entries are saved using `localStorage` so users can retrieve their previous learnings even after refreshing or closing the page.
 
 ---
+## Contributing
 
+### How to Contribute
+
+We welcome contributions from the community. Here's how you can get involved:
+
+1.**Star the Repository**
+   
+2.**Create the Issue & Get Assigned**
+   Create the issue you want to work on and get assigned or Get assigned to already created issue by us.
+   
+3.   **Fork the Repository**:
+   Fork the repository to your own GitHub account by clicking the "Fork" button.
+
+4. **Create a Branch**:
+   Once you've forked the repo, create a new branch:
+   ```
+   git checkout -b new-feature
+   ```
+
+5. **Make Your Changes**:
+   Make sure your code adheres to our styling guide (follow the existing conventions in HTML, CSS, and JavaScript).
+
+6. **Push Your Changes**:
+   Push the changes to your branch:
+   
+   git push origin new-feature
+   
+
+7. **Create a Pull Request**:
+   Go to your fork on GitHub and create a pull request. Please provide details on the changes you've made.
+   
 ## Installation
 
 ### Prerequisites
@@ -62,32 +93,7 @@ To run this application, you need the following:
 
 
 
-## Contributing
 
-### How to Contribute
-
-We welcome contributions from the community. Here's how you can get involved:
-
-1. **Fork the Repository**:
-   Fork the repository to your own GitHub account by clicking the "Fork" button.
-
-2. **Create a Branch**:
-   Once you've forked the repo, create a new branch:
-   ```
-   git checkout -b new-feature
-   ```
-
-3. **Make Your Changes**:
-   Make sure your code adheres to our styling guide (follow the existing conventions in HTML, CSS, and JavaScript).
-
-4. **Push Your Changes**:
-   Push the changes to your branch:
-   
-   git push origin new-feature
-   
-
-5. **Create a Pull Request**:
-   Go to your fork on GitHub and create a pull request. Please provide details on the changes you've made.
 
 ### Things to Improve
 - **Enhance UX**: Add more customization options for entries.
