@@ -82,9 +82,9 @@ We welcome contributions from the community. Here's how you can get involved:
 
 4. **Push Your Changes**:
    Push the changes to your branch:
-   ```
+   
    git push origin new-feature
-   ```
+   
 
 5. **Create a Pull Request**:
    Go to your fork on GitHub and create a pull request. Please provide details on the changes you've made.
@@ -94,7 +94,7 @@ We welcome contributions from the community. Here's how you can get involved:
 - **Add Analytics**: Track user engagement and most-used features.
 - **Performance Optimization**: Optimize the snapshot generation for mobile.
 
----
+
 
 
 
@@ -102,15 +102,15 @@ We welcome contributions from the community. Here's how you can get involved:
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
----
+
 
 ### Contact
 
 For any questions, suggestions, or feedback, feel free to contact:
-- **Email**: web3.rajeev@gmail.com
+-
 - **GitHub**: https://github.com/TheOpenInnovator
 
----
+
 
 
 
