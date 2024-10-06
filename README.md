@@ -42,19 +42,22 @@ To run this application, you need the following:
 - Internet connection (if hosting online)
 
 ### Steps
-1. **Clone the Repository**:
+1.**Star the Repository**:
+   Star this repository to access this from your profile and to share.
+   ```
+2. **Clone the Repository**:
    ```
    git clone https://github.com/your-username/zen-note.git
    cd zen-note
    ```
 
-2. **Open the Application**:
+3. **Open the Application**:
    Open the `index.html` file in your browser:
    ```
    open index.html
    ```
 
-3. **Enjoy the Features**:
+4. **Enjoy the Features**:
    Start entering your daily learnings, toggle between light and dark modes, and generate beautiful snapshots of your notes!
 
 ---
