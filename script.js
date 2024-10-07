@@ -26,11 +26,28 @@ function addEntry(content) {
 }
 
 function deleteEntry(id) {
-    if (confirm('Are you sure you want to delete this entry?')) {
-        entries = entries.filter(entry => entry.id !== id);
-        saveEntries();
-        renderEntries();
-    }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won’t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            entries = entries.filter(entry => entry.id !== id);
+            saveEntries();
+            renderEntries();
+
+            Swal.fire(
+                'Deleted!',
+                'Your entry has been deleted.',
+                'success'
+            );
+        }
+    });
 }
 
 function renderEntries() {
@@ -153,8 +170,20 @@ copySnapshotBtn.addEventListener('click', () => {
     snapshotCanvas.toBlob(blob => {
         const item = new ClipboardItem({ 'image/png': blob });
         navigator.clipboard.write([item]).then(() => {
-            alert('Snapshot copied to clipboard!');
-        });
+            Swal.fire({
+                title: 'Snapshot Copied!',
+                text: 'Your snapshot has been successfully copied to the clipboard.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        }).catch(()=>{
+            Swal.fire({
+                title: 'Oops!',
+                text: 'Something went wrong. Couldn’t copy the snapshot to the clipboard.',
+                icon: 'error',
+                confirmButtonText: 'Try Again'
+            });
+        })
     });
 });
 
