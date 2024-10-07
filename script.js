@@ -146,6 +146,10 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMessage.style.display = "none"; // Hide error message
             fakeTextarea.classList.remove("error");
             hiddenTextArea.value = textContent; // Set the hidden input value to send with form
+            fakeTextarea.innerText = "";
+            setTimeout(() => {
+                fakeTextarea.focus(); // Focus on the fake textarea after submission
+            }, 50);
         }
     });
 

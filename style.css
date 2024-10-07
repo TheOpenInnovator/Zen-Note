@@ -233,6 +233,7 @@ button:active {
     word-wrap: break-word;
     position: relative; /* Necessary for absolute positioning of the placeholder */
     box-sizing: border-box;
+    color: #000000;
 }
 
 /* Placeholder styling with padding */
