@@ -1,5 +1,5 @@
 const entryForm = document.getElementById('entryForm');
-const entryInput = document.getElementById('entryInput');
+const entryInput = document.getElementById('fake-textarea');
 const entriesList = document.getElementById('entriesList');
 const darkModeToggle = document.getElementById('darkModeToggle');
 const snapshotModal = document.getElementById('snapshotModal');
@@ -151,9 +151,55 @@ function createSnapshot(entry) {
     snapshotModal.style.display = 'block';
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    const fakeTextarea = document.getElementById("fake-textarea");
+    const hiddenTextArea = document.getElementById("hiddenTextArea");
+    const errorMessage = document.getElementById("error-message");
+    const entryForm = document.getElementById("entryForm");
+
+    // Function to toggle placeholder appearance
+    function togglePlaceholder() {
+        if (fakeTextarea.textContent.trim() === "") {
+            fakeTextarea.classList.add("empty");
+        } else {
+            fakeTextarea.classList.remove("empty");
+        }
+    }
+
+    // Validate the form on submission
+    entryForm.addEventListener("submit", function(event) {
+        const textContent = fakeTextarea.textContent.trim();
+        
+        if (textContent === "") {
+            errorMessage.style.display = "block"; // Show error message
+            fakeTextarea.classList.add("error");
+            event.preventDefault(); // Prevent form submission
+        } else {
+            errorMessage.style.display = "none"; // Hide error message
+            fakeTextarea.classList.remove("error");
+            hiddenTextArea.value = textContent; // Set the hidden input value to send with form
+            fakeTextarea.innerText = "";
+            setTimeout(() => {
+                fakeTextarea.focus(); // Focus on the fake textarea after submission
+            }, 50);
+        }
+    });
+
+    // Initialize placeholder on load
+    togglePlaceholder();
+
+    // Add event listeners
+    fakeTextarea.addEventListener("input", togglePlaceholder);
+    fakeTextarea.addEventListener("focus", togglePlaceholder);
+    fakeTextarea.addEventListener("blur", togglePlaceholder);
+});
+
+
+
 entryForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const content = entryInput.value.trim();
+    const content = entryInput.innerText.trim();
+    console.log(content);
     if (content) {
         addEntry(content);
         entryInput.value = '';

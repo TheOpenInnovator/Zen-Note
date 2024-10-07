@@ -45,6 +45,16 @@ h1 {
     font-size: 2.5em;
     color: #F3D250;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    margin: 20px auto;
+}
+
+.light-mode h1{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #473e1d;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 #entryForm {
@@ -155,13 +165,18 @@ button:active {
     position: fixed;
     top: 20px;
     right: 20px;
+    width: fit-content;
     font-size: 28px;
     background: none;
     border: none;
     cursor: pointer;
     z-index: 1000;
 }
+.container-head{
+    display: flexbox;
+    flex-direction: row;
 
+}
 .modal {
     display: none;
     position: fixed;
@@ -207,16 +222,71 @@ button:active {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
+.fake-textarea {
+    width: 100%;
+    min-height: 40px;
+    padding: 10px; /* Add consistent padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    outline: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    position: relative; /* Necessary for absolute positioning of the placeholder */
+    box-sizing: border-box;
+    color: #000000;
+}
+
+/* Placeholder styling with padding */
+.fake-textarea.empty:before {
+    content: attr(data-placeholder);
+    color: #999;
+    position: absolute;
+    left: 10px; /* Align with padding */
+    top: 10px;
+    pointer-events: none; /* Ensure placeholder doesn't interfere with typing */
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+/* Ensure consistent padding when not empty */
+.fake-textarea:not(.empty) {
+    padding: 10px; /* Maintain padding even when content is entered */
+}
+
+.fake-textarea:focus {
+    border-color: #66afe9;
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+}
+
+.fake-textarea.error {
+    border-color: red;
+}
+
+
+
 
 @media (max-width: 600px) {
     #entryForm {
         flex-direction: column;
     }
 
-    #entryInput, button {
-        width: 100%;
+    button {
+        max-width: 100%;
         border-radius: 5px;
         margin-bottom: 10px;
+    }
+    button[type="submit"]
+    {
+        margin-top: 10px;
+    }
+   
+    .fake-textarea {
+        border-radius: 5px;
+
     }
 
     .container {
