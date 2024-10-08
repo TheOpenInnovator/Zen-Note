@@ -50,6 +50,33 @@ function deleteEntry(id) {
     });
 }
 
+function handleEditEntry(id) {
+    const entry = entries.find(e => e.id === id);
+
+    if (entry) {
+        const entryDiv = document.querySelector(`.entry-content[data-id='${id}']`);
+        const actionsDiv = document.querySelector(`.entry-actions[data-id='${id}']`);
+        entryDiv.innerHTML = `<textarea class="edit-input">${entry.content}</textarea>`;
+        actionsDiv.innerHTML = `
+            <span class="save-btn" data-id="${entry.id}" title="Save Changes">Save 💾</span>
+            <span class="cancel-btn" data-id="${entry.id}" title="Cancel">Delete ❌</span>
+        `;
+        document.querySelector(`.save-btn[data-id='${id}']`).addEventListener('click', () => handleSaveEntry(id));
+        document.querySelector(`.cancel-btn[data-id='${id}']`).addEventListener('click', renderEntries);
+    }
+}
+
+function handleSaveEntry(id) {
+    const entry = entries.find(e => e.id === id);
+    const newContent = document.querySelector(`.edit-input`).value.trim();
+
+    if (entry && newContent) {
+        entry.content = newContent;
+        saveEntries();
+        renderEntries();
+    }
+}
+
 function renderEntries() {
     entriesList.innerHTML = '';
     let currentDate = '';
@@ -66,13 +93,18 @@ function renderEntries() {
         const li = document.createElement('li');
         li.className = 'entry';
         li.innerHTML = `
-            <div class="entry-content">${entry.content}</div>
-            <div class="entry-actions">
+            <div class="entry-content" data-id="${entry.id}">${entry.content}</div>
+            <div class="entry-actions" data-id="${entry.id}">
                 <span class="snapshot-btn" data-id="${entry.id}" title="Create Snapshot">📷</span>
+                <span class="edit-btn" data-id="${entry.id}" title="Edit Entry">✏️</span>  <!-- Edit button -->
                 <span class="delete-btn" data-id="${entry.id}" title="Delete Entry">🗑️</span>
             </div>
         `;
         entriesList.appendChild(li);
+
+        // Add event listeners for edit and delete buttons
+        document.querySelector(`.edit-btn[data-id='${entry.id}']`).addEventListener('click', () => handleEditEntry(entry.id));
+        document.querySelector(`.delete-btn[data-id='${entry.id}']`).addEventListener('click', () => deleteEntry(entry.id));
     });
 }
 
