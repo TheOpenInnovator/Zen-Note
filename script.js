@@ -41,8 +41,8 @@ function handleEditEntry(id) {
         const actionsDiv = document.querySelector(`.entry-actions[data-id='${id}']`);
         entryDiv.innerHTML = `<textarea class="edit-input">${entry.content}</textarea>`;
         actionsDiv.innerHTML = `
-            <span class="save-btn" data-id="${entry.id}" title="Save Changes">💾</span>
-            <span class="cancel-btn" data-id="${entry.id}" title="Cancel">❌</span>
+            <span class="save-btn" data-id="${entry.id}" title="Save Changes">Save 💾</span>
+            <span class="cancel-btn" data-id="${entry.id}" title="Cancel">Delete ❌</span>
         `;
         document.querySelector(`.save-btn[data-id='${id}']`).addEventListener('click', () => handleSaveEntry(id));
         document.querySelector(`.cancel-btn[data-id='${id}']`).addEventListener('click', renderEntries);
