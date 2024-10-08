@@ -17,7 +17,7 @@ function saveEntries() {
 function addEntry(content) {
     const newEntry = {
         id: Date.now(),
-        content: content,
+        content: content.replaceAll("\n", "<br>"),
         date: new Date().toLocaleDateString()
     };
     entries.unshift(newEntry);
@@ -141,21 +141,26 @@ function createSnapshot(entry) {
 
     ctx.fillStyle = '#ffff00';
     ctx.font = '20px Arial';
-    const words = entry.content.split(' ');
-    let line = '';
+    const contentLines = entry.content.split("<br>");
     let y = 80;
-    for (let i = 0; i < words.length; i++) {
-        const testLine = line + words[i] + ' ';
-        const metrics = ctx.measureText(testLine);
-        if (metrics.width > width - 60 && i > 0) {
-            ctx.fillText(line, 30, y);
-            line = words[i] + ' ';
-            y += 30;
-        } else {
-            line = testLine;
+    for(let contentLine of contentLines) {
+        const words = contentLine.split(' ');
+        let line = '';
+        for (let i = 0; i < words.length; i++) {
+            const testLine = line + words[i] + ' ';
+            const metrics = ctx.measureText(testLine);
+            if (metrics.width > width - 60 && i > 0) {
+                ctx.fillText(line, 30, y);
+                line = words[i] + ' ';
+                y += 30;
+            } else {
+                line = testLine;
+            }
         }
+        ctx.fillText(line, 30, y);
+        y += 30;
     }
-    ctx.fillText(line, 30, y);
+
 
     // Add website name with glow effect
     ctx.fillStyle = '#ffffff';
@@ -186,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Validate the form on submission
     entryForm.addEventListener("submit", function(event) {
         const textContent = fakeTextarea.textContent.trim();
-        
+
         if (textContent === "") {
             errorMessage.style.display = "block"; // Show error message
             fakeTextarea.classList.add("error");
