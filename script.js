@@ -26,7 +26,7 @@ function addEntry(content) {
 }
 
 function deleteEntry(id) {
-  if (confirm("Do you really want to remove this entry?")) {
+  if (confirm("Are you sure you want to delete this entry?")) {
     entries = entries.filter((entry) => entry.id !== id);
     saveEntries();
     renderEntries();
@@ -51,8 +51,8 @@ function renderEntries() {
     li.innerHTML = `
             <div class="entry-content">${entry.content}</div>
             <div class="entry-actions">
-                <span class="snapshot-btn" data-id="${entry.id}" title="Create Snapshot">⭳</span>
-                <span class="delete-btn" data-id="${entry.id}" title="Delete Entry">🚮</span>
+                <span class="snapshot-btn" data-id="${entry.id}" title="Create Snapshot">📷</span>
+                <span class="delete-btn" data-id="${entry.id}" title="Delete Entry">🗑️</span>
             </div>
         `;
     entriesList.appendChild(li);
@@ -198,9 +198,24 @@ downloadSnapshotBtn.addEventListener("click", () => {
 copySnapshotBtn.addEventListener("click", () => {
   snapshotCanvas.toBlob((blob) => {
     const item = new ClipboardItem({ "image/png": blob });
-    navigator.clipboard.write([item]).then(() => {
-      alert("Snapshot copied to clipboard!");
-    });
+    navigator.clipboard
+      .write([item])
+      .then(() => {
+        Swal.fire({
+          title: "Snapshot Copied!",
+          text: "Your snapshot has been successfully copied to the clipboard.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Oops!",
+          text: "Something went wrong. Couldn’t copy the snapshot to the clipboard.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
+      });
   });
 });
 
