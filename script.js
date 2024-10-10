@@ -1,14 +1,14 @@
-const entryForm = document.getElementById("entryForm");
-const entryInput = document.getElementById("fake-textarea");
-const entriesList = document.getElementById("entriesList");
-const darkModeToggle = document.getElementById("darkModeToggle");
-const snapshotModal = document.getElementById("snapshotModal");
-const snapshotCanvas = document.getElementById("snapshotCanvas");
-const downloadSnapshotBtn = document.getElementById("downloadSnapshot");
-const copySnapshotBtn = document.getElementById("copySnapshot");
-const closeModalBtn = document.getElementById("closeModal");
+const entryForm = document.getElementById('entryForm');
+const entryInput = document.getElementById('fake-textarea');
+const entriesList = document.getElementById('entriesList');
+const darkModeToggle = document.getElementById('darkModeToggle');
+const snapshotModal = document.getElementById('snapshotModal');
+const snapshotCanvas = document.getElementById('snapshotCanvas');
+const downloadSnapshotBtn = document.getElementById('downloadSnapshot');
+const copySnapshotBtn = document.getElementById('copySnapshot');
+const closeModalBtn = document.getElementById('closeModal');
 
-let entries = JSON.parse(localStorage.getItem("entries")) || [];
+let entries = JSON.parse(localStorage.getItem('entries')) || [];
 
 function saveEntries() {
   localStorage.setItem("entries", JSON.stringify(entries));
@@ -26,11 +26,55 @@ function addEntry(content) {
 }
 
 function deleteEntry(id) {
-  if (confirm("Are you sure you want to delete this entry?")) {
-    entries = entries.filter((entry) => entry.id !== id);
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You won’t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel',
+}).then((result) => {
+    if (result.isConfirmed) {
+        entries = entries.filter(entry => entry.id !== id);
+        saveEntries();
+        renderEntries();
+
+        Swal.fire(
+            'Deleted!',
+            'Your entry has been deleted.',
+            'success'
+        );
+    }
+});
+}
+
+function handleEditEntry(id) {
+const entry = entries.find(e => e.id === id);
+
+if (entry) {
+    const entryDiv = document.querySelector(`.entry-content[data-id='${id}']`);
+    const actionsDiv = document.querySelector(`.entry-actions[data-id='${id}']`);
+    entryDiv.innerHTML = `<textarea class="edit-input">${entry.content}</textarea>`;
+    actionsDiv.innerHTML = `
+        <span class="save-btn" data-id="${entry.id}" title="Save Changes">Save 💾</span>
+        <span class="cancel-btn" data-id="${entry.id}" title="Cancel">Delete ❌</span>
+    `;
+    document.querySelector(`.save-btn[data-id='${id}']`).addEventListener('click', () => handleSaveEntry(id));
+    document.querySelector(`.cancel-btn[data-id='${id}']`).addEventListener('click', renderEntries);
+}
+}
+
+function handleSaveEntry(id) {
+const entry = entries.find(e => e.id === id);
+const newContent = document.querySelector(`.edit-input`).value.trim();
+
+if (entry && newContent) {
+    entry.content = newContent;
     saveEntries();
     renderEntries();
-  }
+}
 }
 
 function renderEntries() {
@@ -46,25 +90,23 @@ function renderEntries() {
       entriesList.appendChild(dateHeader);
     }
 
-    const li = document.createElement("li");
-    li.className = "entry";
+    const li = document.createElement('li');
+    li.className = 'entry';
     li.innerHTML = `
-            <div class="entry-content">${entry.content}</div>
-            <div class="entry-actions">
-                <span class="snapshot-btn" data-id="${entry.id}" title="Create Snapshot">⭳</span>
-                <span class="delete-btn" data-id="${entry.id}" title="Delete Entry">🚮</span>
-            </div>
+        <div class="entry-content" data-id="${entry.id}">${entry.content}</div>
+        <div class="entry-actions" data-id="${entry.id}">
+            <span class="snapshot-btn" data-id="${entry.id}" title="Create Snapshot">📷</span>
+            <span class="edit-btn" data-id="${entry.id}" title="Edit Entry">✏️</span>  <!-- Edit button -->
+            <span class="delete-btn" data-id="${entry.id}" title="Delete Entry">🗑️</span></div>
         `;
     entriesList.appendChild(li);
   });
 }
 
 function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-  document.body.classList.toggle("light-mode");
-  darkModeToggle.textContent = document.body.classList.contains("dark-mode")
-    ? "☼️"
-    : "🌙";
+  document.body.classList.toggle('dark-mode');
+    document.body.classList.toggle('light-mode');
+    darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
 }
 
 function createSnapshot(entry) {
