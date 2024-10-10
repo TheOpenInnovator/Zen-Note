@@ -1,19 +1,19 @@
 :root {
-    --bg-gradient-light: linear-gradient(153deg, #87ceeb, #F3D250);
-    --bg-gradient-dark: linear-gradient(153deg, #111222, #08041f);
-    --text-color-light: #0b0c10;
-    --text-color-dark: #f7f7f7;
+    --bg-gradient-light: linear-gradient(135deg, #F78888, #F3D250);
+    --bg-gradient-dark: linear-gradient(135deg, #212A31, #2E3944);
+    --text-color-light: #333;
+    --text-color-dark: #EDE8F5;
     --entry-bg-light: rgba(236, 236, 236, 0.8);
     --entry-bg-dark: rgba(46, 57, 68, 0.7);
-    --button-bg-light: #90f4ec;
-    --button-bg-dark: #42515e;
-    --button-hover-light: #529bb8;
-    --button-hover-dark: #08041f;
+    --button-bg-light: #90CCF4;
+    --button-bg-dark: #3D52A0;
+    --button-hover-light: #5DA2D5;
+    --button-hover-dark: #124E66;
 }
 
 body {
-    font-family: 'poppins', sans-serif; /*changed the font family */
-    margin: 100px 0px 0px 0px;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
     padding: 20px;
     min-height: 100vh;
     transition: background 0.3s, color 0.3s;
@@ -32,7 +32,7 @@ body.dark-mode {
 .container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 6rem 0px;
+    padding: 20px;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 15px;
@@ -43,23 +43,21 @@ h1 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 2.5em;
-    color: #f7f7f7;
+    color: #F3D250;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     width: fit-content;
     margin: 20px auto;
-    font-weight: 200; /*changed the font weight */
 }
 
 .light-mode h1{
     text-align: center;
     margin-bottom: 20px;
     font-size: 2.5em;
-    color: #0b0c10;
+    color: #473e1d;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 #entryForm {
-    padding: 0 70px;
     display: flex;
     margin-bottom: 20px;
 }
@@ -70,7 +68,6 @@ h1 {
     font-size: 16px;
     border: none;
     border-radius: 5px 0 0 5px;
-    outline: none;
     background-color: rgba(255, 255, 255, 0.9);
 }
 
@@ -108,19 +105,18 @@ button:active {
 #entriesList {
     list-style-type: none;
     padding: 0;
-    margin: 0px 70px;
 }
 
 .entry {
     background-color: var(--entry-bg-light);
+    margin-bottom: 15px;
     padding: 20px;
-    margin-bottom: 30px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .entry-actions span.edit-btn {
@@ -139,7 +135,6 @@ button:active {
 .entry-content {
     flex-grow: 1;
     margin-right: 15px;
-    padding: 0 40px;
 }
 
 .entry-actions {
@@ -155,15 +150,6 @@ button:active {
 
 .entry-actions span:hover {
     transform: scale(1.2);
-}
-
-.light-mode .date-header { /*added a light mode for the date */
-    font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    color: #0b0c10;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .edit-input {
@@ -192,7 +178,7 @@ button:active {
     margin-top: 30px;
     margin-bottom: 15px;
     font-size: 1.2em;
-    color: #f7f7f7;
+    color: #F3D250;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
