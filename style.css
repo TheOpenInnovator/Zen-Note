@@ -1,6 +1,6 @@
 :root {
     --bg-gradient-light: linear-gradient(153deg, #87ceeb, #F3D250);
-    --bg-gradient-dark: linear-gradient(153deg, #3b4753, #3a454f);
+    --bg-gradient-dark: linear-gradient(153deg, #111222, #08041f);
     --text-color-light: #0b0c10;
     --text-color-dark: #f7f7f7;
     --entry-bg-light: rgba(236, 236, 236, 0.8);
@@ -8,7 +8,7 @@
     --button-bg-light: #90f4ec;
     --button-bg-dark: #42515e;
     --button-hover-light: #529bb8;
-    --button-hover-dark: #21282e;
+    --button-hover-dark: #08041f;
 }
 
 body {

@@ -51,8 +51,8 @@ function renderEntries() {
     li.innerHTML = `
             <div class="entry-content">${entry.content}</div>
             <div class="entry-actions">
-                <span class="snapshot-btn" data-id="${entry.id}" title="Create Snapshot">📷</span>
-                <span class="delete-btn" data-id="${entry.id}" title="Delete Entry">🗑️</span>
+                <span class="snapshot-btn" data-id="${entry.id}" title="Create Snapshot">⭳</span>
+                <span class="delete-btn" data-id="${entry.id}" title="Delete Entry">🚮</span>
             </div>
         `;
     entriesList.appendChild(li);
