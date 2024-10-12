@@ -25,6 +25,37 @@ function addEntry(content) {
   renderEntries();
 }
 
+function editEntry(id) {
+  console.log("Id to be edited", id);
+  const entryDiv = document.querySelector(`.entry-content[data-id='${id}']`);
+  console.log(entryDiv.innerText);
+
+  const textarea = document.createElement('textarea');
+  textarea.className = 'edit-input';
+  textarea.placeholder = 'Enter text here...';
+  textarea.value = entryDiv.innerText;
+
+  entryDiv.style.display = 'none'; // Hide the original content
+  entryDiv.parentNode.insertBefore(textarea, entryDiv.nextSibling); // Insert textarea after entryDiv
+
+  textarea.addEventListener('blur', () => {
+    const newContent = textarea.value.trim();
+    console.log("Edited content:", newContent);
+
+    // Update the content in the entries array
+    const index = entries.findIndex(entry => entry.id === id);
+    if (index !== -1) {
+      entries[index].content = newContent; // Update the content
+      saveEntries(entries); // Save the updated entries
+
+      // Re-render entries after saving
+      renderEntries();
+    }
+  });
+}
+
+
+
 function deleteEntry(id) {
   Swal.fire({
     title: 'Are you sure?',
@@ -57,6 +88,7 @@ if (entry) {
     const entryDiv = document.querySelector(`.entry-content[data-id='${id}']`);
     const actionsDiv = document.querySelector(`.entry-actions[data-id='${id}']`);
     entryDiv.innerHTML = `<textarea class="edit-input">${entry.content}</textarea>`;
+   
     actionsDiv.innerHTML = `
         <span class="save-btn" data-id="${entry.id}" title="Save Changes">Save 💾</span>
         <span class="cancel-btn" data-id="${entry.id}" title="Cancel">Delete ❌</span>
@@ -68,10 +100,11 @@ if (entry) {
 
 function handleSaveEntry(id) {
 const entry = entries.find(e => e.id === id);
-const newContent = document.querySelector(`.edit-input`).value.trim();
+
+
 
 if (entry && newContent) {
-    entry.content = newContent;
+   
     saveEntries();
     renderEntries();
 }
@@ -217,13 +250,20 @@ entryForm.addEventListener("submit", (e) => {
 });
 
 entriesList.addEventListener("click", (e) => {
-  if (e.target.classList.contains("delete-btn")) {
+  if (e.target.classList.contains("delete-btn")  ) {
     const id = parseInt(e.target.getAttribute("data-id"));
+    
     deleteEntry(id);
+  
   } else if (e.target.classList.contains("snapshot-btn")) {
     const id = parseInt(e.target.getAttribute("data-id"));
     const entry = entries.find((entry) => entry.id === id);
     createSnapshot(entry);
+  }
+  if( e.target.classList.contains("edit-btn"))
+  {
+    const id = parseInt(e.target.getAttribute("data-id"));
+    editEntry(id);
   }
 });
 
