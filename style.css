@@ -204,13 +204,40 @@ button:active {
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
-@media (max-width: 600px) {
-    #entryForm {
-        flex-direction: column;
+@media (max-width: 1200px) {
+    h1 {
+        font-size: 2em;
     }
 
     #entryInput, button {
-        width: 100%;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 900px) {
+    h1 {
+        font-size: 1.8em;
+        margin-top: 40px;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-left: 3%;
+    }
+
+    .container {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    #entryForm {
+        flex-direction: column;
+        
+    }
+
+    #entryInput, button {
+        width: 90%;
         border-radius: 5px;
         margin-bottom: 10px;
     }
@@ -226,5 +253,10 @@ button:active {
 
     .entry-actions {
         margin-top: 10px;
+    }
+
+    .modal-content {
+        width: 90%;
+        margin: 5% auto;
     }
 }
