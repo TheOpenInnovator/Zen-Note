@@ -142,6 +142,7 @@ function toggleDarkMode() {
 }
 
 let userUploadedImage = null;
+let selectedBackground = localStorage.getItem('selectedBackground') || 'gradient1';
 function createSnapshot(entry) {
   const canvas = snapshotCanvas;
   const ctx = canvas.getContext("2d");
@@ -151,35 +152,8 @@ function createSnapshot(entry) {
   canvas.height = height;
 
   // Apply background based on selection or uploaded image
-  const backgroundSelect = document.getElementById("backgroundSelect");
-  const selectedBackground = backgroundSelect.value;
-
-  if (userUploadedImage) {
-    ctx.drawImage(userUploadedImage, 0, 0, width, height);
-  } else {
-    switch (selectedBackground) {
-      case "gradient1":
-        const gradient1 = ctx.createLinearGradient(0, 0, width, height);
-        gradient1.addColorStop(0, "#9ca6d3");
-        gradient1.addColorStop(1, "#35377a");
-        ctx.fillStyle = gradient1;
-        break;
-      case "gradient2":
-        const gradient2 = ctx.createLinearGradient(0, 0, width, height);
-        gradient2.addColorStop(0, "#ffd89b");
-        gradient2.addColorStop(1, "#19547b");
-        ctx.fillStyle = gradient2;
-        break;
-      case "solid1":
-        ctx.fillStyle = "#3498db";
-        break;
-      case "solid2":
-        ctx.fillStyle = "#2ecc71";
-        break;
-    }
-    ctx.fillRect(0, 0, width, height);
-  }
-
+  applyBackground(ctx, width, height);
+  
   // Create gradient background
   // const gradient = ctx.createLinearGradient(0, 0, width, height);
   // gradient.addColorStop(0, "#1a2a6c");
@@ -191,12 +165,12 @@ function createSnapshot(entry) {
   // Add glassmorphism effect
   ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
   ctx.fillRect(20, 20, width - 40, height - 40);
-
+  
   // Add text
   ctx.fillStyle = "#ffffff";
   ctx.font = "18px Arial";
   ctx.fillText(entry.date, 40, 60);
-
+  
   ctx.fillStyle = "#ffffff";
   ctx.font = "22px Arial";
   const words = entry.content.split(" ");
@@ -222,12 +196,45 @@ function createSnapshot(entry) {
   ctx.shadowBlur = 10;
   ctx.fillText("Made with Zen Note", width - 200, height - 30);
   ctx.shadowBlur = 0;
-
+  
   snapshotModal.style.display = "block";
 }
 
+function applyBackground(ctx, width, height) {
+  if (userUploadedImage) {
+    ctx.drawImage(userUploadedImage, 0, 0, width, height);
+  } else {
+    switch (selectedBackground) {
+      case "gradient1":
+        const gradient1 = ctx.createLinearGradient(0, 0, width, height);
+        gradient1.addColorStop(0, "#9ca6d3");
+        gradient1.addColorStop(1, "#35377a");
+        ctx.fillStyle = gradient1;
+        break;
+      case "gradient2":
+        const gradient2 = ctx.createLinearGradient(0, 0, width, height);
+        gradient2.addColorStop(0, "#ffd89b");
+        gradient2.addColorStop(1, "#19547b");
+        ctx.fillStyle = gradient2;
+        break;
+      case "solid1":
+        ctx.fillStyle = "#3498db";
+        break;
+      case "solid2":
+        ctx.fillStyle = "#2ecc71";
+        break;
+    }
+    ctx.fillRect(0, 0, width, height);
+  } 
+}
+
 // Add event listener for background selection change
-document.getElementById("backgroundSelect").addEventListener("change", () => {
+document.getElementById("backgroundSelect").addEventListener("change", (e) => {
+  selectedBackground = e.target.value;
+  localStorage.setItem('selectedBackground', selectedBackground);
+  if (selectedBackground !== 'uploaded') {
+    userUploadedImage = null;
+  }
   const selectedEntry = entries.find(
     (entry) =>
       entry.id ===
@@ -244,6 +251,8 @@ document.getElementById("imageUpload").addEventListener("change", (e) => {
     reader.onload = function (event) {
       userUploadedImage = new Image();
       userUploadedImage.onload = function () {
+        selectedBackground = 'uploaded';
+        localStorage.setItem('selectedBackground', selectedBackground);
         const selectedEntry = entries.find(
           (entry) =>
             entry.id ===
@@ -257,6 +266,12 @@ document.getElementById("imageUpload").addEventListener("change", (e) => {
     };
     reader.readAsDataURL(file);
   }
+});
+
+// Set the initial value of the background select element
+document.addEventListener('DOMContentLoaded', () => {
+  const backgroundSelect = document.getElementById("backgroundSelect");
+  backgroundSelect.value = selectedBackground;
 });
 
 document.addEventListener("DOMContentLoaded", function () {
