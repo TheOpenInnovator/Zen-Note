@@ -142,7 +142,16 @@ function toggleDarkMode() {
 }
 
 let userUploadedImage = null;
-let selectedBackground = localStorage.getItem('selectedBackground') || 'gradient1';
+let selectedBackground =
+  localStorage.getItem("selectedBackground") || "gradient1";
+
+// Load the uploaded image from localStorage if it exists
+const storedImage = localStorage.getItem("userUploadedImage");
+if (storedImage) {
+  userUploadedImage = new Image();
+  userUploadedImage.src = storedImage;
+}
+
 function createSnapshot(entry) {
   const canvas = snapshotCanvas;
   const ctx = canvas.getContext("2d");
@@ -153,7 +162,7 @@ function createSnapshot(entry) {
 
   // Apply background based on selection or uploaded image
   applyBackground(ctx, width, height);
-  
+
   // Create gradient background
   // const gradient = ctx.createLinearGradient(0, 0, width, height);
   // gradient.addColorStop(0, "#1a2a6c");
@@ -163,15 +172,15 @@ function createSnapshot(entry) {
   // ctx.fillRect(0, 0, width, height);
 
   // Add glassmorphism effect
-  ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+  ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
   ctx.fillRect(20, 20, width - 40, height - 40);
-  
+
   // Add text
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#212121";
   ctx.font = "18px Arial";
   ctx.fillText(entry.date, 40, 60);
-  
-  ctx.fillStyle = "#ffffff";
+
+  ctx.fillStyle = "#212121";
   ctx.font = "22px Arial";
   const words = entry.content.split(" ");
   let line = "";
@@ -190,18 +199,18 @@ function createSnapshot(entry) {
   ctx.fillText(line, 40, y);
 
   // Add website name with glow effect
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#212121";
   ctx.font = "18px Arial";
-  ctx.shadowColor = "#ffffff";
-  ctx.shadowBlur = 10;
+  ctx.shadowColor = "#212121";
+  ctx.shadowBlur = 1.5;
   ctx.fillText("Made with Zen Note", width - 200, height - 30);
-  ctx.shadowBlur = 0;
-  
+  // ctx.shadowBlur = 0;
+
   snapshotModal.style.display = "block";
 }
 
 function applyBackground(ctx, width, height) {
-  if (userUploadedImage) {
+  if (selectedBackground === 'uploaded' && userUploadedImage) {
     ctx.drawImage(userUploadedImage, 0, 0, width, height);
   } else {
     switch (selectedBackground) {
@@ -225,22 +234,14 @@ function applyBackground(ctx, width, height) {
         break;
     }
     ctx.fillRect(0, 0, width, height);
-  } 
+  }
 }
 
 // Add event listener for background selection change
 document.getElementById("backgroundSelect").addEventListener("change", (e) => {
   selectedBackground = e.target.value;
   localStorage.setItem('selectedBackground', selectedBackground);
-  if (selectedBackground !== 'uploaded') {
-    userUploadedImage = null;
-  }
-  const selectedEntry = entries.find(
-    (entry) =>
-      entry.id ===
-      parseInt(document.querySelector(".snapshot-btn").getAttribute("data-id"))
-  );
-  createSnapshot(selectedEntry);
+  updateSnapshot();
 });
 
 // Add event listener for image upload
@@ -253,14 +254,8 @@ document.getElementById("imageUpload").addEventListener("change", (e) => {
       userUploadedImage.onload = function () {
         selectedBackground = 'uploaded';
         localStorage.setItem('selectedBackground', selectedBackground);
-        const selectedEntry = entries.find(
-          (entry) =>
-            entry.id ===
-            parseInt(
-              document.querySelector(".snapshot-btn").getAttribute("data-id")
-            )
-        );
-        createSnapshot(selectedEntry);
+        localStorage.setItem('userUploadedImage', userUploadedImage.src);
+        updateSnapshot();
       };
       userUploadedImage.src = event.target.result;
     };
@@ -268,8 +263,19 @@ document.getElementById("imageUpload").addEventListener("change", (e) => {
   }
 });
 
+function updateSnapshot() {
+  const selectedEntry = entries.find(
+    (entry) =>
+      entry.id ===
+      parseInt(document.querySelector(".snapshot-btn").getAttribute("data-id"))
+  );
+  if (selectedEntry) {
+    createSnapshot(selectedEntry);
+  }
+}
+
 // Set the initial value of the background select element
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const backgroundSelect = document.getElementById("backgroundSelect");
   backgroundSelect.value = selectedBackground;
 });
