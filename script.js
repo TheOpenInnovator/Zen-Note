@@ -172,7 +172,7 @@ function createSnapshot(entry) {
   // ctx.fillRect(0, 0, width, height);
 
   // Add glassmorphism effect
-  ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+  ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
   ctx.fillRect(20, 20, width - 40, height - 40);
 
   // Add text
@@ -210,27 +210,34 @@ function createSnapshot(entry) {
 }
 
 function applyBackground(ctx, width, height) {
-  if (selectedBackground === 'uploaded' && userUploadedImage) {
+  if (selectedBackground === "uploaded" && userUploadedImage) {
     ctx.drawImage(userUploadedImage, 0, 0, width, height);
   } else {
     switch (selectedBackground) {
       case "gradient1":
         const gradient1 = ctx.createLinearGradient(0, 0, width, height);
-        gradient1.addColorStop(0, "#9ca6d3");
-        gradient1.addColorStop(1, "#35377a");
+        gradient1.addColorStop(0, "#ffa17f");
+        gradient1.addColorStop(1, "#65c7f7");
         ctx.fillStyle = gradient1;
         break;
       case "gradient2":
         const gradient2 = ctx.createLinearGradient(0, 0, width, height);
-        gradient2.addColorStop(0, "#ffd89b");
-        gradient2.addColorStop(1, "#19547b");
+        gradient2.addColorStop(0, "#9c77c0");
+        gradient2.addColorStop(0.5, "#dbd4b4");
+        gradient2.addColorStop(1, "#4c80c2");
         ctx.fillStyle = gradient2;
         break;
-      case "solid1":
-        ctx.fillStyle = "#3498db";
+      case "gradient3":
+        const gradient3 = ctx.createLinearGradient(0, 0, width, height);
+        gradient3.addColorStop(0, "#CF8BF3");
+        gradient3.addColorStop(1, "#0b8793");
+        ctx.fillStyle = gradient3;
         break;
-      case "solid2":
-        ctx.fillStyle = "#2ecc71";
+      case "gradient4":
+        const gradient4 = ctx.createLinearGradient(0, 0, width, height);
+        gradient4.addColorStop(0, "#4ec594");
+        gradient4.addColorStop(1, "#a7bfe8");
+        ctx.fillStyle = gradient4;
         break;
     }
     ctx.fillRect(0, 0, width, height);
@@ -240,7 +247,7 @@ function applyBackground(ctx, width, height) {
 // Add event listener for background selection change
 document.getElementById("backgroundSelect").addEventListener("change", (e) => {
   selectedBackground = e.target.value;
-  localStorage.setItem('selectedBackground', selectedBackground);
+  localStorage.setItem("selectedBackground", selectedBackground);
   updateSnapshot();
 });
 
@@ -252,9 +259,9 @@ document.getElementById("imageUpload").addEventListener("change", (e) => {
     reader.onload = function (event) {
       userUploadedImage = new Image();
       userUploadedImage.onload = function () {
-        selectedBackground = 'uploaded';
-        localStorage.setItem('selectedBackground', selectedBackground);
-        localStorage.setItem('userUploadedImage', userUploadedImage.src);
+        selectedBackground = "uploaded";
+        localStorage.setItem("selectedBackground", selectedBackground);
+        localStorage.setItem("userUploadedImage", userUploadedImage.src);
         updateSnapshot();
       };
       userUploadedImage.src = event.target.result;
