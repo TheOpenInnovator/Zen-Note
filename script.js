@@ -171,8 +171,11 @@ function createSnapshot(entry) {
   // ctx.fillStyle = gradient;
   // ctx.fillRect(0, 0, width, height);
 
+  // Determine glassmorphism opacity based on background type
+  let glassOpacity = selectedBackground === "uploaded" ? 0.5 : 0.2;
+
   // Add glassmorphism effect
-  ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+  ctx.fillStyle = `rgba(255, 255, 255, ${glassOpacity})`;
   ctx.fillRect(20, 20, width - 40, height - 40);
 
   // Add text
@@ -180,18 +183,35 @@ function createSnapshot(entry) {
   ctx.font = "18px Arial";
   ctx.fillText(entry.date, 40, 60);
 
+  // Calculate appropriate font size based on content length
+  const contentLength = entry.content.length;
+  let fontSize;
+  if (contentLength < 100) {
+    fontSize = 28;
+  } else if (contentLength < 300) {
+    fontSize = 24;
+  } else if (contentLength < 500) {
+    fontSize = 20;
+  } else {
+    fontSize = 16;
+  }
+
+  // Add text with dynamic font size
   ctx.fillStyle = "#212121";
-  ctx.font = "22px Arial";
+  ctx.font = `${fontSize}px Arial`;
+  const maxWidth = width - 80;
+  const lineHeight = fontSize * 1.2;
   const words = entry.content.split(" ");
   let line = "";
   let y = 100;
+
   for (let i = 0; i < words.length; i++) {
     const testLine = line + words[i] + " ";
     const metrics = ctx.measureText(testLine);
-    if (metrics.width > width - 80 && i > 0) {
+    if (metrics.width > maxWidth && i > 0) {
       ctx.fillText(line, 40, y);
       line = words[i] + " ";
-      y += 35;
+      y += lineHeight;
     } else {
       line = testLine;
     }
