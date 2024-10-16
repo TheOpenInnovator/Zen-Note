@@ -14,10 +14,14 @@ function saveEntries() {
   localStorage.setItem("entries", JSON.stringify(entries));
 }
 
+function replaceLineBreak(content) {
+  return content.replaceAll("\n", "<br>");
+}
+
 function addEntry(content) {
   const newEntry = {
     id: Date.now(),
-    content: content,
+    content: replaceLineBreak(content),
     date: new Date().toLocaleDateString(),
   };
   entries.unshift(newEntry);
@@ -28,6 +32,7 @@ function addEntry(content) {
 function editEntry(id) {
   console.log("Id to be edited", id);
   const entryDiv = document.querySelector(`.entry-content[data-id='${id}']`);
+  const entryActions = document.querySelector(`.entry-actions[data-id='${id}']`);
   console.log(entryDiv.innerText);
 
   const textarea = document.createElement('textarea');
@@ -35,6 +40,7 @@ function editEntry(id) {
   textarea.placeholder = 'Enter text here...';
   textarea.value = entryDiv.innerText;
 
+  entryActions.style.display = 'none'; // Hide the actions
   entryDiv.style.display = 'none'; // Hide the original content
   entryDiv.parentNode.insertBefore(textarea, entryDiv.nextSibling); // Insert textarea after entryDiv
 
@@ -45,7 +51,7 @@ function editEntry(id) {
     // Update the content in the entries array
     const index = entries.findIndex(entry => entry.id === id);
     if (index !== -1) {
-      entries[index].content = newContent; // Update the content
+      entries[index].content = replaceLineBreak(newContent); // Update the content
       saveEntries(entries); // Save the updated entries
 
       // Re-render entries after saving
@@ -79,35 +85,6 @@ function deleteEntry(id) {
         );
     }
 });
-}
-
-function handleEditEntry(id) {
-const entry = entries.find(e => e.id === id);
-
-if (entry) {
-    const entryDiv = document.querySelector(`.entry-content[data-id='${id}']`);
-    const actionsDiv = document.querySelector(`.entry-actions[data-id='${id}']`);
-    entryDiv.innerHTML = `<textarea class="edit-input">${entry.content}</textarea>`;
-   
-    actionsDiv.innerHTML = `
-        <span class="save-btn" data-id="${entry.id}" title="Save Changes">Save 💾</span>
-        <span class="cancel-btn" data-id="${entry.id}" title="Cancel">Delete ❌</span>
-    `;
-    document.querySelector(`.save-btn[data-id='${id}']`).addEventListener('click', () => handleSaveEntry(id));
-    document.querySelector(`.cancel-btn[data-id='${id}']`).addEventListener('click', renderEntries);
-}
-}
-
-function handleSaveEntry(id) {
-const entry = entries.find(e => e.id === id);
-
-
-
-if (entry && newContent) {
-   
-    saveEntries();
-    renderEntries();
-}
 }
 
 function renderEntries() {
@@ -169,21 +146,25 @@ function createSnapshot(entry) {
 
   ctx.fillStyle = "#ffff00";
   ctx.font = "20px Arial";
-  const words = entry.content.split(" ");
-  let line = "";
+  const contentLines = entry.content.split("<br>");
   let y = 80;
-  for (let i = 0; i < words.length; i++) {
-    const testLine = line + words[i] + " ";
-    const metrics = ctx.measureText(testLine);
-    if (metrics.width > width - 60 && i > 0) {
-      ctx.fillText(line, 30, y);
-      line = words[i] + " ";
-      y += 30;
-    } else {
-      line = testLine;
+  for(let contentLine of contentLines) {
+    const words = contentLine.split(' ');
+    let line = '';
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + ' ';
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > width - 60 && i > 0) {
+        ctx.fillText(line, 30, y);
+        line = words[i] + ' ';
+        y += 30;
+      } else {
+        line = testLine;
+      }
     }
+    ctx.fillText(line, 30, y);
+    y += 30;
   }
-  ctx.fillText(line, 30, y);
 
   // Add website name with glow effect
   ctx.fillStyle = "#ffffff";
@@ -252,9 +233,9 @@ entryForm.addEventListener("submit", (e) => {
 entriesList.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-btn")  ) {
     const id = parseInt(e.target.getAttribute("data-id"));
-    
+
     deleteEntry(id);
-  
+
   } else if (e.target.classList.contains("snapshot-btn")) {
     const id = parseInt(e.target.getAttribute("data-id"));
     const entry = entries.find((entry) => entry.id === id);
