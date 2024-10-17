@@ -14,10 +14,14 @@ function saveEntries() {
   localStorage.setItem("entries", JSON.stringify(entries));
 }
 
+function replaceLineBreak(content) {
+  return content.replaceAll("\n", "<br>");
+}
+
 function addEntry(content) {
   const newEntry = {
     id: Date.now(),
-    content: content,
+    content: replaceLineBreak(content),
     date: new Date().toLocaleDateString(),
   };
   entries.unshift(newEntry);
@@ -28,6 +32,7 @@ function addEntry(content) {
 function editEntry(id) {
   console.log("Id to be edited", id);
   const entryDiv = document.querySelector(`.entry-content[data-id='${id}']`);
+  const entryActions = document.querySelector(`.entry-actions[data-id='${id}']`);
   console.log(entryDiv.innerText);
 
   const textarea = document.createElement("textarea");
@@ -35,7 +40,9 @@ function editEntry(id) {
   textarea.placeholder = "Enter text here...";
   textarea.value = entryDiv.innerText;
 
-  entryDiv.style.display = "none"; // Hide the original content
+  entryActions.style.display = 'none'; // Hide the actions
+  entryDiv.style.display = 'none'; // Hide the original content
+
   entryDiv.parentNode.insertBefore(textarea, entryDiv.nextSibling); // Insert textarea after entryDiv
 
   textarea.addEventListener("blur", () => {
@@ -45,7 +52,7 @@ function editEntry(id) {
     // Update the content in the entries array
     const index = entries.findIndex((entry) => entry.id === id);
     if (index !== -1) {
-      entries[index].content = newContent; // Update the content
+      entries[index].content = replaceLineBreak(newContent); // Update the content
       saveEntries(entries); // Save the updated entries
 
       // Re-render entries after saving
@@ -215,6 +222,8 @@ function createSnapshot(entry) {
     } else {
       line = testLine;
     }
+    ctx.fillText(line, 30, y);
+    y += 30;
   }
   ctx.fillText(line, 40, y);
 
