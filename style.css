@@ -39,6 +39,12 @@ body.dark-mode {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.container-body {
+    margin-left: 20px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+}
+
 h1 {
     text-align: center;
     margin-bottom: 20px;
