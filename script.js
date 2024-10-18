@@ -8,6 +8,8 @@ const downloadSnapshotBtn = document.getElementById("downloadSnapshot");
 const copySnapshotBtn = document.getElementById("copySnapshot");
 const closeModalBtn = document.getElementById("closeModal");
 
+let selectedEntryId = null;
+
 let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
 function saveEntries() {
@@ -160,6 +162,7 @@ if (storedImage) {
 }
 
 function createSnapshot(entry) {
+  selectedEntryId = entry.id;
   const canvas = snapshotCanvas;
   const ctx = canvas.getContext("2d");
   const width = 700;
@@ -222,8 +225,6 @@ function createSnapshot(entry) {
     } else {
       line = testLine;
     }
-    ctx.fillText(line, 30, y);
-    y += 30;
   }
   ctx.fillText(line, 40, y);
 
@@ -233,7 +234,6 @@ function createSnapshot(entry) {
   ctx.shadowColor = "#212121";
   ctx.shadowBlur = 1.5;
   ctx.fillText("Made with Zen Note", width - 200, height - 30);
-  // ctx.shadowBlur = 0;
 
   snapshotModal.style.display = "block";
 }
@@ -302,8 +302,8 @@ document.getElementById("imageUpload").addEventListener("change", (e) => {
 function updateSnapshot() {
   const selectedEntry = entries.find(
     (entry) =>
-      entry.id ===
-      parseInt(document.querySelector(".snapshot-btn").getAttribute("data-id"))
+      entry.id === selectedEntryId
+      // parseInt(document.querySelector(".snapshot-btn").getAttribute("data-id"))
   );
   if (selectedEntry) {
     createSnapshot(selectedEntry);
