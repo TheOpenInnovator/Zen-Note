@@ -20,6 +20,10 @@ function replaceLineBreak(content) {
   return content.replaceAll("\n", "<br>");
 }
 
+function revertLineBreaks(content) {
+  return content.replaceAll("<br>", "\n");
+}
+
 function addEntry(content) {
   const newEntry = {
     id: Date.now(),
@@ -193,8 +197,10 @@ function createSnapshot(entry) {
   ctx.font = "18px Arial";
   ctx.fillText(entry.date, 40, 60);
 
+  const contentWithLineBreaks = revertLineBreaks(entry.content);
+
   // Calculate appropriate font size based on content length
-  const contentLength = entry.content.length;
+  const contentLength = contentWithLineBreaks.length;
   let fontSize;
   if (contentLength < 100) {
     fontSize = 28;
@@ -211,22 +217,27 @@ function createSnapshot(entry) {
   ctx.font = `${fontSize}px Arial`;
   const maxWidth = width - 80;
   const lineHeight = fontSize * 1.2;
-  const words = entry.content.split(" ");
-  let line = "";
+  const paragraphs = contentWithLineBreaks.split("\n");
   let y = 100;
 
-  for (let i = 0; i < words.length; i++) {
-    const testLine = line + words[i] + " ";
-    const metrics = ctx.measureText(testLine);
-    if (metrics.width > maxWidth && i > 0) {
-      ctx.fillText(line, 40, y);
-      line = words[i] + " ";
-      y += lineHeight;
-    } else {
-      line = testLine;
+  paragraphs.forEach(paragraph => {
+    const words = paragraph.split(" ");
+    let line = "";
+
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + " ";
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > maxWidth && i > 0) {
+        ctx.fillText(line, 40, y);
+        line = words[i] + " ";
+        y += lineHeight;
+      } else {
+        line = testLine;
+      }
     }
-  }
-  ctx.fillText(line, 40, y);
+    ctx.fillText(line, 40, y);
+    y += lineHeight;
+  });
 
   // Add website name with glow effect
   ctx.fillStyle = "#212121";
