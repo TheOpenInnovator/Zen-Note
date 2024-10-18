@@ -21,13 +21,14 @@ body {
 
 body.light-mode {
     background: var(--bg-gradient-light);
-    color: var(--text-color-light);
+    color: var(--text-color-dark); /* Ensure higher contrast in light mode */
 }
 
 body.dark-mode {
     background: var(--bg-gradient-dark);
-    color: var(--text-color-dark);
+    color: var(--text-color-light); /* Higher contrast in dark mode */
 }
+
 
 .container {
     max-width: 800px;

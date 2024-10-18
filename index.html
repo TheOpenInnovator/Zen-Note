@@ -4,20 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zen Note</title>
-
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-        <!-- Favicons -->
-        <link rel="shortcut icon" href="Images/logo.png">
-        <link rel="apple-touch-icon" href="Images/logo.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="Images/logo.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="Images/logo.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="Images/logo.png">
-
-
-        
 </head>
 <nav>
     <ul>
@@ -29,9 +17,9 @@
 <body class="light-mode">
     <div class="container">
         <div class="container-head">
-        <h1>Zen Note</h1>
-        <button id="darkModeToggle">🌙</button>
-    </div>
+            <h1>Zen Note</h1>
+            <button id="darkModeToggle">🌙</button>
+        </div>
         <form id="entryForm">
             <div id="fake-textarea" class="fake-textarea" contenteditable="true" data-placeholder="What did you learn today?"></div>
             <input type="hidden" id="hiddenTextArea" name="textareaValue">
@@ -40,8 +28,8 @@
         </form>
         <ul id="entriesList"></ul>
     </div>
-    
 
+    <!-- Snapshot Modal -->
     <div id="snapshotModal" class="modal">
         <div class="modal-content">
             <canvas id="snapshotCanvas"></canvas>
@@ -52,6 +40,19 @@
             </div>
         </div>
     </div>
+
+    <!-- Snapshot Settings Menu -->
+    <div id="snapshotMenu" style="margin: 20px;">
+        <label for="backgroundUpload">Upload Background:</label>
+        <input type="file" id="backgroundUpload" accept="image/*">
+        
+        <label for="fontColorPicker">Font Color:</label>
+        <input type="color" id="fontColorPicker" value="#000000">
+        
+        <label for="fontSizePicker">Font Size:</label>
+        <input type="number" id="fontSizePicker" min="10" max="50" value="20">
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
