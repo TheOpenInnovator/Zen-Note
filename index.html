@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zen Note</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -16,13 +16,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <nav>
+
     <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="signup.html">Sign up</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html">Sign up</a></li>
     </ul>
-</nav>
-<body class="light-mode">
+  </nav>
+  <body class="light-mode">
     <div class="container">
         <div class="container-head">
             <h1>Zen Note</h1>
@@ -51,18 +52,34 @@
         </div>
 
         <ul id="entriesList"></ul>
+
     </div>
 
     <div id="snapshotModal" class="modal">
-        <div class="modal-content">
-            <canvas id="snapshotCanvas"></canvas>
-            <div class="modal-buttons">
-                <button id="downloadSnapshot">Download</button>
-                <button id="copySnapshot">Copy</button>
-                <button id="closeModal">Close</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-options">
+          <h3>Choose Background:</h3>
+          <select id="backgroundSelect">
+            <option value="gradient1">Gradient 1</option>
+            <option value="gradient2">Gradient 2</option>
+            <option value="gradient3">Gradient 3</option>
+            <option value="gradient4">Gradient 4</option>
+            <option value="uploaded">Uploaded Image</option>
+          </select>
+          <label for="imageUpload" class="custom-file-upload">
+            Upload Image
+          </label>
+          <input type="file" id="imageUpload" accept="image/*" />
         </div>
+        <canvas id="snapshotCanvas"></canvas>
+        <div class="modal-buttons">
+          <button id="downloadSnapshot">Download</button>
+          <button id="copySnapshot">Copy</button>
+          <button id="closeModal">Close</button>
+        </div>
+      </div>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
