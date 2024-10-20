@@ -12,11 +12,21 @@
 }
 
 body {
+<<<<<<< HEAD
   font-family: "poppins", sans-serif; /*changed the font family */
   margin: 100px 0px 0px 0px;
   padding: 20px;
   min-height: 100vh;
   transition: background 0.3s, color 0.3s;
+=======
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+>>>>>>> zenv2
 }
 
 body.light-mode {
@@ -30,6 +40,7 @@ body.dark-mode {
 }
 
 .container {
+<<<<<<< HEAD
   max-width: 800px;
   margin: 0 auto;
   padding: 6rem 0px;
@@ -54,6 +65,26 @@ h1 {
   width: fit-content;
   margin: 20px auto;
   font-weight: 200; /*changed the font weight */
+=======
+    flex: 1;
+    max-width: 1000px; /* Increased from 800px to 1000px */
+    width: 90%; /* Added to ensure responsiveness */
+    margin: 20px auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--text-color-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0 0 30px 0;
+    font-weight: 600;
+>>>>>>> zenv2
 }
 
 .light-mode h1 {
@@ -65,9 +96,87 @@ h1 {
 }
 
 #entryForm {
+<<<<<<< HEAD
   padding: 0 70px;
   display: flex;
   margin-bottom: 20px;
+=======
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.fake-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    resize: vertical;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.category-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.category-select,
+.category-text {
+    flex: 3;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--button-bg-light);
+    color: var(--text-color-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .category-input {
+        flex-direction: column;
+    }
+
+    .category-select,
+    .category-text,
+    button[type="submit"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+>>>>>>> zenv2
 }
 
 #entryInput {
@@ -112,6 +221,7 @@ button:active {
 }
 
 #entriesList {
+<<<<<<< HEAD
   list-style-type: none;
   padding: 0;
   margin: 0px 70px;
@@ -127,6 +237,25 @@ button:active {
   align-items: center;
   transition: background-color 0.3s, transform 0.2s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+=======
+    list-style-type: none;
+    padding: 0;
+    margin: 0px 70px;
+    margin-top: 40px;
+}
+
+.entry {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+>>>>>>> zenv2
 }
 
 .entry-actions span.edit-btn {
@@ -139,7 +268,11 @@ button:active {
 }
 
 .dark-mode .entry {
+<<<<<<< HEAD
   background-color: var(--entry-bg-dark);
+=======
+    background-color: rgba(0, 0, 0, 0.2);
+>>>>>>> zenv2
 }
 
 .entry-content {
@@ -163,6 +296,7 @@ button:active {
   transform: scale(1.2);
 }
 
+<<<<<<< HEAD
 .light-mode .date-header {
   /*added a light mode for the date */
   font-weight: bold;
@@ -171,6 +305,15 @@ button:active {
   font-size: 1.2em;
   color: #0b0c10;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+=======
+.light-mode .date-header { /*added a light mode for the date */
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: var(--text-color-light);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+>>>>>>> zenv2
 }
 
 .edit-input {
@@ -195,12 +338,21 @@ button:active {
 }
 
 .date-header {
+<<<<<<< HEAD
   font-weight: bold;
   margin-top: 30px;
   margin-bottom: 15px;
   font-size: 1.2em;
   color: #f7f7f7;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+=======
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: var(--text-color-light);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+>>>>>>> zenv2
 }
 
 #darkModeToggle {
@@ -308,10 +460,10 @@ button:active {
 
 .fake-textarea {
     width: 100%;
-    min-height: 40px;
-    padding: 10px; /* Add consistent padding */
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    min-height: 120px;
+    padding: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
     font-size: 16px;
     font-family: Arial, sans-serif;
     overflow-y: auto;
