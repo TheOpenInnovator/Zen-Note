@@ -12,11 +12,14 @@
 }
 
 body {
-  font-family: "poppins", sans-serif; /*changed the font family */
-  margin: 100px 0px 0px 0px;
-  padding: 20px;
-  min-height: 100vh;
-  transition: background 0.3s, color 0.3s;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+
 }
 
 body.light-mode {
@@ -30,30 +33,25 @@ body.dark-mode {
 }
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 6rem 0px;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.container-body {
-    margin-left: 20px;
-    margin-right: 40px;
-    margin-bottom: 20px;
+    flex: 1;
+    max-width: 1000px; /* Increased from 800px to 1000px */
+    width: 90%; /* Added to ensure responsiveness */
+    margin: 20px auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2.5em;
-  color: #f7f7f7;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  width: fit-content;
-  margin: 20px auto;
-  font-weight: 200; /*changed the font weight */
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--text-color-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0 0 30px 0;
+    font-weight: 600;
+
 }
 
 .light-mode h1 {
@@ -65,9 +63,82 @@ h1 {
 }
 
 #entryForm {
-  padding: 0 70px;
-  display: flex;
-  margin-bottom: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.fake-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    resize: vertical;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.category-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.category-select,
+.category-text {
+    flex: 3;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--button-bg-light);
+    color: var(--text-color-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .category-input {
+        flex-direction: column;
+    }
+
+    .category-select,
+    .category-text,
+    button[type="submit"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
 }
 
 #entryInput {
@@ -112,21 +183,24 @@ button:active {
 }
 
 #entriesList {
-  list-style-type: none;
-  padding: 0;
-  margin: 0px 70px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0px 70px;
+    margin-top: 40px;
 }
 
 .entry {
-  background-color: var(--entry-bg-light);
-  padding: 20px;
-  margin-bottom: 30px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+
 }
 
 .entry-actions span.edit-btn {
@@ -139,7 +213,8 @@ button:active {
 }
 
 .dark-mode .entry {
-  background-color: var(--entry-bg-dark);
+    background-color: rgba(0, 0, 0, 0.2);
+
 }
 
 .entry-content {
@@ -163,14 +238,15 @@ button:active {
   transform: scale(1.2);
 }
 
-.light-mode .date-header {
-  /*added a light mode for the date */
-  font-weight: bold;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  font-size: 1.2em;
-  color: #0b0c10;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
+.light-mode .date-header { /*added a light mode for the date */
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: var(--text-color-light);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
 }
 
 .edit-input {
@@ -195,12 +271,13 @@ button:active {
 }
 
 .date-header {
-  font-weight: bold;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  font-size: 1.2em;
-  color: #f7f7f7;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: var(--text-color-light);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
 }
 
 #darkModeToggle {
@@ -308,87 +385,111 @@ button:active {
 
 .fake-textarea {
     width: 100%;
-    min-height: 40px;
-    padding: 10px; /* Add consistent padding */
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    min-height: 120px;
+    padding: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
     font-size: 16px;
-    font-family: Arial, sans-serif;
-    overflow-y: auto;
-    background-color: #f9f9f9;
-    outline: none;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    position: relative; /* Necessary for absolute positioning of the placeholder */
-    box-sizing: border-box;
-    color: #000000;
-}
-
-/* Placeholder styling with padding */
-.fake-textarea.empty:before {
-  content: attr(data-placeholder);
-  color: #999;
-  position: absolute;
-  left: 10px; /* Align with padding */
-  top: 10px;
-  pointer-events: none; /* Ensure placeholder doesn't interfere with typing */
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-}
-
-/* Ensure consistent padding when not empty */
-.fake-textarea:not(.empty) {
-  padding: 10px; /* Maintain padding even when content is entered */
+    font-family: 'Poppins', sans-serif;
+    resize: vertical;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--text-color-light);
 }
 
 .fake-textarea:focus {
-  border-color: #66afe9;
-  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+    border-color: var(--button-bg-light);
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
-.fake-textarea.error {
-  border-color: red;
+.category-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
+.category-select,
+.category-text {
+    flex: 2;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--text-color-light);
+    transition: all 0.3s ease;
+}
+
+.dark-mode .category-select,
+.dark-mode .category-text {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-color-dark);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+button[type="submit"] {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--button-bg-light);
+    color: var(--text-color-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--button-hover-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Dark mode styles */
+.dark-mode .fake-textarea,
+.dark-mode .category-select,
+.dark-mode .category-text {
+    background-color: #333;
+    border-color: #555;
+    color: #fff;
+}
+
+.dark-mode .category-select option {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Responsive styles */
 @media (max-width: 600px) {
-  #entryForm {
-    flex-direction: column;
-  }
+    .container {
+        margin: 10px;
+        padding: 1rem;
+    }
 
-  button {
-    max-width: 100%;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  button[type="submit"] {
-    margin-top: 10px;
-  }
+    .category-input {
+        flex-direction: column;
+    }
 
-  .fake-textarea {
-    border-radius: 5px;
-  }
+    .category-select,
+    .category-text,
+    button[type="submit"] {
+        width: 100%;
+        margin: 5px 0;
+    }
 
-  .container {
-    padding: 10px;
-  }
+    button[type="submit"] {
+        margin-left: 0;
+    }
 
-  .entry {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .entry-actions {
-    margin-top: 10px;
-  }
-
-  .modal-options {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .modal-options > * {
-    margin-bottom: 10px;
-  }
 }
 
 nav {
@@ -500,5 +601,276 @@ button[type="submit"]:hover {
 }
 
 .dark-mode button[type="submit"]:hover {
-  background-color: var(--button-hover-dark);
+
+    background-color: var(--button-hover-dark);
 }
+/* Add these styles to your existing CSS */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.category-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.category-select {
+    padding: 8px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    min-width: 200px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-select:hover {
+    border-color: #c0c0c0;
+}
+
+.category-text {
+    padding: 8px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 200px;
+    transition: all 0.3s ease;
+}
+
+.category-text:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.categories-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.categories-section h2 {
+    font-size: 24px;
+    color: var(--text-color-light);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.categories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.category-tag {
+    padding: 8px 16px;
+    background-color: var(--button-bg-light);
+    color: var(--text-color-light);
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 5px;
+}
+
+.category-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background-color: var(--button-hover-light);
+}
+
+.dark-mode .category-tag {
+    background-color: var(--button-bg-dark);
+    color: var(--text-color-dark);
+}
+
+.dark-mode .category-tag:hover {
+    background-color: var(--button-hover-dark);
+}
+
+/* Category page styles */
+.category-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.category-page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.category-page-title {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.category-notes {
+    display: grid;
+    gap: 20px;
+}
+
+.category-note {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.category-note:hover {
+    transform: translateY(-2px);
+}
+
+.note-date {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.note-content {
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Update these existing styles */
+#entryForm {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.fake-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.fake-textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.category-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.category-select {
+    flex: 2;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+}
+
+.category-text {
+    flex: 2;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+    display: none;
+}
+
+button[type="submit"] {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--button-bg-light);
+    color: var(--text-color-light);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--button-hover-light);
+    transform: translateY(-2px);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Dark mode styles */
+.dark-mode .fake-textarea,
+.dark-mode .category-select,
+.dark-mode .category-text {
+    background-color: #333;
+    border-color: #555;
+    color: #fff;
+}
+
+.dark-mode .category-select option {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .category-input {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .category-select,
+    .category-text,
+    button[type="submit"] {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+/* Update the media query for smaller screens */
+@media (max-width: 1100px) { /* Changed from 600px to 1100px */
+    .container {
+        width: 95%;
+        padding: 1rem;
+        margin: 10px auto;
+    }
+}
+

@@ -449,3 +449,160 @@ if (
 }
 
 renderEntries();
+
+// Add these functions to your existing JavaScript
+
+let categories = new Set();
+
+// Load categories from localStorage
+function loadCategories() {
+    const savedCategories = localStorage.getItem('categories');
+    if (savedCategories) {
+        categories = new Set(JSON.parse(savedCategories));
+        updateCategoryDropdown();
+        displayCategories();
+    }
+}
+
+// Save categories to localStorage
+function saveCategories() {
+    localStorage.setItem('categories', JSON.stringify([...categories]));
+}
+
+// Update the category dropdown
+function updateCategoryDropdown() {
+    const select = document.getElementById('existingCategory');
+    select.innerHTML = '<option value="">Select or add new category</option>';
+    select.innerHTML += '<option value="new">+ Add new category</option>';
+    [...categories].sort().forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        select.appendChild(option);
+    });
+}
+
+// Display categories in the grid
+function displayCategories() {
+    const categoriesList = document.getElementById('categoriesList');
+    categoriesList.innerHTML = '';
+    
+    [...categories].sort().forEach(category => {
+        const categoryTag = document.createElement('button');
+        categoryTag.className = 'category-tag';
+        categoryTag.textContent = category;
+        categoryTag.onclick = () => openCategoryPage(category);
+        categoriesList.appendChild(categoryTag);
+    });
+}
+
+// Save entry with category
+function saveEntry(text, category = '') {
+    const entries = JSON.parse(localStorage.getItem('entries') || '[]');
+    const entry = {
+        text,
+        category,
+        date: new Date().toISOString()
+    };
+    entries.push(entry);
+    localStorage.setItem('entries', JSON.stringify(entries));
+    
+    if (category) {
+        categories.add(category);
+        saveCategories();
+        updateCategoryDropdown();
+        displayCategories();
+    }
+}
+
+// Open category page in new tab
+function openCategoryPage(category) {
+    const entries = JSON.parse(localStorage.getItem('entries') || '[]');
+    const categoryEntries = entries.filter(entry => entry.category === category);
+    
+    const newWindow = window.open('', '_blank');
+    newWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>${category} - Zen Note</title>
+            <link rel="stylesheet" href="style.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body>
+            <div class="category-page">
+                <div class="category-page-header">
+                    <h1 class="category-page-title">${category}</h1>
+                    <p>${categoryEntries.length} entries</p>
+                </div>
+                <div class="category-notes">
+                    ${categoryEntries.map(entry => `
+                        <div class="category-note">
+                            <div class="note-date">${new Date(entry.date).toLocaleDateString()}</div>
+                            <div class="note-content">${entry.text}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </body>
+        </html>
+    `);
+}
+
+// Update form submission handler
+document.getElementById('entryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const textArea = document.getElementById('fake-textarea');
+    const text = textArea.textContent.trim();
+    
+    if (!text) {
+        document.getElementById('error-message').style.display = 'block';
+        return;
+    }
+    
+    const existingCategory = document.getElementById('existingCategory');
+    const newCategoryInput = document.getElementById('newCategory');
+    let category = existingCategory.value;
+    
+    if (category === 'new') {
+        category = newCategoryInput.value.trim();
+        if (!category) {
+            alert('Please enter a new category name');
+            return;
+        }
+    }
+    
+    saveEntry(text, category);
+    
+    // Clear form
+    textArea.textContent = '';
+    existingCategory.value = '';
+    newCategoryInput.value = '';
+    newCategoryInput.style.display = 'none';
+    document.getElementById('error-message').style.display = 'none';
+    
+    // Show success message
+    Swal.fire({
+        title: 'Success!',
+        text: 'Your note has been saved.',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+    });
+});
+
+// Initialize categories on page load
+document.addEventListener('DOMContentLoaded', loadCategories);
+
+// Add this to your existing JavaScript
+document.getElementById('existingCategory').addEventListener('change', function() {
+    const newCategoryInput = document.getElementById('newCategory');
+    if (this.value === 'new') {
+        newCategoryInput.style.display = 'block';
+        newCategoryInput.focus();
+    } else {
+        newCategoryInput.style.display = 'none';
+        newCategoryInput.value = ''; // Clear the input when hidden
+    }
+});
