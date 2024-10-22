@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zen Note</title>
-
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <!-- Favicons -->
-    <link rel="shortcut icon" href="Images/logo.png" />
-    <link rel="apple-touch-icon" href="Images/logo.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="Images/logo.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="Images/logo.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="Images/logo.png" />
-  </head>
-  <nav>
+    <link rel="shortcut icon" href="Images/logo.png">
+    <link rel="apple-touch-icon" href="Images/logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="Images/logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="Images/logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="Images/logo.png">
+    <!-- Add this line -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<nav>
+
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="login.html">Login</a></li>
@@ -24,24 +25,34 @@
   </nav>
   <body class="light-mode">
     <div class="container">
-      <div class="container-head">
-        <h1>Zen Note</h1>
-        <button id="darkModeToggle">🌙</button>
-      </div>
-      <form id="entryForm">
-        <div
-          id="fake-textarea"
-          class="fake-textarea"
-          contenteditable="true"
-          data-placeholder="What did you learn today?"
-        ></div>
-        <input type="hidden" id="hiddenTextArea" name="textareaValue" />
-        <span id="error-message" style="color: red; display: none"
-          >This field is required.</span
-        >
-        <button type="submit">Add Entry</button>
-      </form>
-      <ul id="entriesList"></ul>
+        <div class="container-head">
+            <h1>Zen Note</h1>
+            <button id="darkModeToggle">🌙</button>
+        </div>
+        <form id="entryForm">
+            <div class="input-group">
+                <div id="fake-textarea" class="fake-textarea" contenteditable="true" data-placeholder="What did you learn today?"></div>
+                <input type="hidden" id="hiddenTextArea" name="textareaValue">
+                <div class="category-input">
+                    <select id="existingCategory" class="category-select">
+                        <option value="">Select or add new category</option>
+                        <option value="new">+ Add new category</option>
+                        <!-- Existing categories will be dynamically added here by JavaScript -->
+                    </select>
+                    <input type="text" id="newCategory" placeholder="Enter new category" class="category-text">
+                    <button type="submit">Add Entry</button>
+                </div>
+            </div>
+            <span id="error-message" style="color: red; display: none;">This field is required.</span>
+        </form>
+
+        <div class="categories-section">
+            <h2>Explore Your Interests</h2>
+            <div id="categoriesList" class="categories-grid"></div>
+        </div>
+
+        <ul id="entriesList"></ul>
+
     </div>
 
     <div id="snapshotModal" class="modal">
@@ -69,5 +80,6 @@
       </div>
     </div>
     <script src="script.js"></script>
-  </body>
+</body>
+
 </html>
