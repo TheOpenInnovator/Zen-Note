@@ -152,6 +152,8 @@ function renderEntries() {
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
   document.body.classList.toggle("light-mode");
+  document.querySelector('header').classList.toggle("dark-mode");
+  document.querySelector('header').classList.toggle("light-mode");
   darkModeToggle.textContent = document.body.classList.contains("dark-mode")
     ? "☀️"
     : "🌙";
