@@ -62,6 +62,21 @@ h1 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.dark-mode h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.dark-mode h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 #entryForm {
     padding: 20px;
     display: flex;
@@ -238,15 +253,14 @@ button:active {
   transform: scale(1.2);
 }
 
-
-.light-mode .date-header { /*added a light mode for the date */
-    font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    color: var(--text-color-light);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-
+/* Light mode styles for the date */
+.light-mode .date-header {
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: var(--text-color-light);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .edit-input {
@@ -270,16 +284,27 @@ button:active {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.date-header {
-    font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    color: var(--text-color-light);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-
+/* Custom styles for SweetAlert title */
+.swal-title {
+  color: black; /* Change the title text color to black */
 }
 
+
+/* Default date-header styles */
+.date-header {
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: var(--text-color-light);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Dark mode styles for the date */
+.dark-mode .date-header {
+  color: white; /* Change the date to white in dark mode */
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2); /* Optional, modify text shadow for dark mode */
+}
 #darkModeToggle {
   position: fixed;
   top: 20px;
@@ -467,6 +492,30 @@ button[type="submit"]:active {
     background-color: #333;
     color: #fff;
 }
+
+/* Default light mode styles */
+body.light-mode {
+  background-color: white;
+  color: black;
+}
+
+body.light-mode .categories-section h2 {
+  color: black; /* Explore Your Interests heading in light mode */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+body.dark-mode .categories-section h2 {
+  color: white; /* Explore Your Interests heading in dark mode */
+}
+
+
+
+
 
 /* Responsive styles */
 @media (max-width: 600px) {

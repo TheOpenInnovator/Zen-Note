@@ -66,7 +66,6 @@ function editEntry(id) {
     }
   });
 }
-
 function deleteEntry(id) {
   Swal.fire({
     title: "Are you sure?",
@@ -77,6 +76,9 @@ function deleteEntry(id) {
     cancelButtonColor: "#d33",
     confirmButtonText: "Yes, delete it!",
     cancelButtonText: "No, cancel",
+    customClass: {
+      title: 'swal-title', // Apply a custom class for the title
+    }
   }).then((result) => {
     if (result.isConfirmed) {
       entries = entries.filter((entry) => entry.id !== id);
@@ -87,6 +89,7 @@ function deleteEntry(id) {
     }
   });
 }
+
 
 function handleEditEntry(id) {
   const entry = entries.find((e) => e.id === id);
