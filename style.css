@@ -9,6 +9,9 @@
   --button-bg-dark: #42515e;
   --button-hover-light: #529bb8;
   --button-hover-dark: #08041f;
+  --underline-color-light: #005f7f;
+  --underline-color-dark: grey;
+
 }
 
 body {
@@ -19,17 +22,19 @@ body {
     transition: background 0.3s, color 0.3s;
     display: flex;
     flex-direction: column;
-
 }
 
 body.light-mode {
   background: var(--bg-gradient-light);
   color: var(--text-color-light);
+  --underline-color: var(--underline-color-light);
 }
 
 body.dark-mode {
   background: var(--bg-gradient-dark);
   color: var(--text-color-dark);
+  --underline-color: var(--underline-color-dark);
+ 
 }
 
 .container {
@@ -51,7 +56,6 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin: 0 0 30px 0;
     font-weight: 600;
-
 }
 
 .light-mode h1 {
@@ -540,47 +544,28 @@ body.dark-mode .categories-section h2 {
     }
 
 }
-
-nav {
-  background-color: var(--bg-gradient-light);
-  padding: 10px;
-  text-align: center;
-}
-
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 nav {
-  background-color: var(--bg-gradient-light);
+  background-color: rgba(255, 255, 255, 0.1); /* Lightly tinted semi-transparent background */
   padding: 10px;
   text-align: center;
-}
-
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav {
-  background-color: var(--bg-gradient-light);
-  padding: 10px;
-  text-align: center;
-}
-
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav {
-  background-color: var(--bg-gradient-light);
-  padding: 10px;
-  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.5); /* Slightly transparent border */
+  width: 25rem;
+  margin-top: 0.5rem;
+  border-radius: 20px;
+  backdrop-filter: blur(20px); /* Increased blur effect */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 nav ul {
@@ -597,10 +582,27 @@ nav li {
 nav a {
   color: var(--text-color-light);
   text-decoration: none;
+  position: relative;
+}
+
+nav a::after {
+  content: ''; /* Create an empty content for the pseudo-element */
+  position: absolute; /* Position it absolutely */
+  left: 50%; /* Start from the center */
+  bottom: 0; /* Position it at the bottom of the text */
+  width: 0; /* Initial width is 0 */
+  height: 2px; /* Height of the underline */
+  background: var(--underline-color);
+  transition: width 0.4s ease, left 0.4s ease; /* Animation */
+}
+
+nav a:hover::after {
+  width: 100%; /* Expand to full width on hover */
+  left: 0; /* Move to the left corner */
 }
 
 nav a:hover {
-  color: var(--button-hover-light);
+  color: var(--underline-color-light);
 }
 
 .dark-mode nav {
@@ -612,7 +614,7 @@ nav a:hover {
 }
 
 .dark-mode nav a:hover {
-  color: var(--button-hover-dark);
+  color: var(--underline-color-dark);
 }
 
 .form-group {
