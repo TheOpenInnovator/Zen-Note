@@ -382,6 +382,19 @@ button:active {
 #imageUpload {
     display: none;
 }
+.share-icon{
+  background-color: var(--button-bg-dark);
+  height: 40px;
+  width: 50px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.share-icon:hover{
+  background-color:  var(--button-hover-dark);
+}
 
 #snapshotCanvas {
     width: 100%;
@@ -987,3 +1000,14 @@ button[type="submit"]:active {
   animation: fadeOutDown 0.5s ease forwards; /* Animation duration and easing */
 }
 
+.swal2-close {
+  font-size: 20px; /* Customize size */
+  color: var(--text-color-dark) !important ; /* Customize color */
+  background: var(--button-bg-light) ;
+  border: none;
+  cursor: pointer;
+}
+
+.swal2-close:hover {
+  background: var(--button-bg-light) ;
+}
