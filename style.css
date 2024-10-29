@@ -925,3 +925,65 @@ button[type="submit"]:active {
     }
 }
 
+.share-popup {
+  background : linear-gradient(153deg, #111222, #08041f); 
+  border-radius: 10px; /* Rounded corners */
+  border: 2px solid black;
+  padding: 10px;
+}
+
+.share-title {
+  font-size: 30px !important; /* Change this value to adjust the font size */
+  color: var(--text-color-dark) !important; /* Optional: adjust the color */
+  font-weight: bold; /* Optional: make it bold */
+  margin-bottom: 10px; /* Optional: spacing below the title */
+}
+
+
+.social-share {
+  display: flex;
+  justify-content: center;
+}
+
+.social-icon {
+  margin-right: 10px;
+  font-size: 26px;
+  color: var(--button-bg-dark); /* Example color */
+  transition: color 0.3s;
+
+}
+
+.social-icon:hover {
+  color: var(--button-bg-light); /* Color on hover */
+}
+
+@keyframes fadeInUp {
+  0% {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  0% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 0.5s ease forwards; /* Animation duration and easing */
+}
+
+.fadeOutDown {
+  animation: fadeOutDown 0.5s ease forwards; /* Animation duration and easing */
+}
+

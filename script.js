@@ -326,6 +326,42 @@ function updateSnapshot() {
   }
 }
 
+document.querySelector('.share-icon').addEventListener('click', () => {
+  Swal.fire({
+    title: 'Share Your Daily Insight!',
+    html: `
+        <div class="social-share">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_URL" target="_blank" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/intent/tweet?url=YOUR_URL" target="_blank" class="social-icon">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url=YOUR_URL" target="_blank" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.instagram.com/?url=YOUR_URL" target="_blank" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    `,
+    showCloseButton: true,
+    showConfirmButton: false,
+    width: 400,
+    showClass: {
+      popup: 'fadeInUp', 
+  },
+  hideClass: {
+      popup: 'fadeOutDown', 
+  },
+    customClass: {
+      popup: 'share-popup',
+      title: 'share-title',
+    }
+});
+});
+
+
 // Set the initial value of the background select element
 document.addEventListener("DOMContentLoaded", () => {
   const backgroundSelect = document.getElementById("backgroundSelect");
