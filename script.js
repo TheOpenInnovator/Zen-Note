@@ -24,16 +24,16 @@ function revertLineBreaks(content) {
   return content.replaceAll("<br>", "\n");
 }
 
-function addEntry(content) {
-  const newEntry = {
-    id: Date.now(),
-    content: replaceLineBreak(content),
-    date: new Date().toLocaleDateString(),
-  };
-  entries.unshift(newEntry);
-  saveEntries();
-  renderEntries();
-}
+// function addEntry(content) {
+//   const newEntry = {
+//     id: Date.now(),
+//     content: replaceLineBreak(content),
+//     date: new Date().toLocaleDateString(),
+//   };
+//   entries.unshift(newEntry);
+//   saveEntries();
+//   renderEntries();
+// }
 
 function editEntry(id) {
   console.log("Id to be edited", id);
@@ -127,9 +127,11 @@ function renderEntries() {
   entriesList.innerHTML = "";
   let currentDate = "";
 
-  entries.forEach((entry) => {
-    if (entry.date !== currentDate) {
-      currentDate = entry.date;
+  entries.forEach((entry) => { 
+    // entry_date (in LocaleDateString format) string created from entry.date (in ISOString format) 
+    const entry_date = new Date(entry.date).toLocaleDateString();
+    if (entry_date !== currentDate) {
+      currentDate = entry_date;
       const dateHeader = document.createElement("li");
       dateHeader.className = "date-header";
       dateHeader.textContent = currentDate;
@@ -411,15 +413,15 @@ document.addEventListener("DOMContentLoaded", function () {
   fakeTextarea.addEventListener("blur", togglePlaceholder);
 });
 
-entryForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const content = entryInput.innerText.trim();
-  console.log(content);
-  if (content) {
-    addEntry(content);
-    entryInput.value = "";
-  }
-});
+// entryForm.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   const content = entryInput.innerText.trim();
+//   console.log(content);
+//   if (content) {
+//     addEntry(content);
+//     entryInput.value = "";
+//   }
+// });
 
 entriesList.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-btn")) {
@@ -538,16 +540,17 @@ function displayCategories() {
 }
 
 // Save entry with category
+// change -> remove addEntry function and modified saveEntry to fix the category page
 function saveEntry(text, category = '') {
-    const entries = JSON.parse(localStorage.getItem('entries') || '[]');
     const entry = {
-        text,
-        category,
+        id:Date.now(),
+        content:replaceLineBreak(text),
+        category:category,
         date: new Date().toISOString()
     };
-    entries.push(entry);
-    localStorage.setItem('entries', JSON.stringify(entries));
-    
+    entries.unshift(entry);
+    saveEntries();
+    renderEntries();
     if (category) {
         categories.add(category);
         saveCategories();
@@ -580,7 +583,7 @@ function openCategoryPage(category) {
                     ${categoryEntries.map(entry => `
                         <div class="category-note">
                             <div class="note-date">${new Date(entry.date).toLocaleDateString()}</div>
-                            <div class="note-content">${entry.text}</div>
+                            <div class="note-content">${entry.content}</div>
                         </div>
                     `).join('')}
                 </div>
@@ -595,7 +598,7 @@ document.getElementById('entryForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const textArea = document.getElementById('fake-textarea');
-    const text = textArea.textContent.trim();
+    const text = textArea.innerText.trim()
     
     if (!text) {
         document.getElementById('error-message').style.display = 'block';

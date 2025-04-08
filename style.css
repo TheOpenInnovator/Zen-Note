@@ -782,13 +782,19 @@ button[type="submit"]:hover {
 }
 
 .category-notes {
-    display: grid;
-    gap: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .category-note {
     background-color: white;
     padding: 20px;
+    min-width:200px;
+    min-height:150px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
